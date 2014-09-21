@@ -28,3 +28,9 @@
   content: "";
   padding: 0;
 }
+
+.compare-item {
+  display: block;
+  float: left;
+  margin: 20px;
+}

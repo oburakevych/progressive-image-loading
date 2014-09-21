@@ -9,22 +9,36 @@ angular.module('myApp.abSrcSet.abSrcSet-directive', [])
 			$scope.srcSet = attrs.abSrcSet.split(",");
 			$scope.currentIndex = 0;
 
-			var time;
+			var init = function() {
+				elm.removeAttr('src'); // necessary to avoid infinite compile loop
+				elm.on('load', setImageSourceByIndex);
+
+				setImageSourceByIndex();
+			}
 
 			var setImageSourceByIndex = function() {
 				if ($scope.srcSet.length > $scope.currentIndex) {
-					var newTime = Date.now();
-					console.log(newTime - time + " " + $scope.srcSet[$scope.currentIndex]);
-					elm.attr('src', $scope.srcSet[$scope.currentIndex]);
+					if ($scope.currentIndex == 0) {
+						// Load first (the smallest) image right away
+						// We don't want to spend any time waiting for events to propagate
+						elm.attr('src', $scope.srcSet[$scope.currentIndex]);
+					} else {
+						// Pre load every image except the first one, time is not of a concern anymore
+						var image = new Image();
+						image.onload = function() {
+							$timeout(function() {
+								//console.log(Date.now() + " " + image.src);
+								elm.attr('src', image.src);
+							}, 500 * $scope.currentIndex);
+						}
+						image.src = $scope.srcSet[$scope.currentIndex];
+					} 
+					
 					$scope.currentIndex++;
-					time = newTime;
 				}
 			}
 
-			elm.removeAttr('src'); // necessary to avoid infinite compile loop
-			elm.on('load', setImageSourceByIndex);
-
-			setImageSourceByIndex();
+			init();
 		}
 	}
 }]);
