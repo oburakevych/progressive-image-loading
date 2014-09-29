@@ -8,6 +8,9 @@ angular.module('myApp.abSrcSet.abSrcSet-directive', [])
 		link: function($scope, elm, attrs) {
 			$scope.srcSet = attrs.abSrcSet.split(",");
 			$scope.currentIndex = 0;
+			
+			$scope.abSrcLoadTime = [];
+			var startTime = Date.now();
 
 			var init = function() {
 				elm.removeAttr('src'); // necessary to avoid infinite compile loop
@@ -29,8 +32,9 @@ angular.module('myApp.abSrcSet.abSrcSet-directive', [])
 							$timeout(function() {
 								//console.log(Date.now() + " " + image.src);
 								elm.attr('src', image.src);
-							}, 500 * $scope.currentIndex);
+							}, 200 * $scope.currentIndex);
 						}
+
 						image.src = $scope.srcSet[$scope.currentIndex];
 					} 
 					
