@@ -18,5 +18,5 @@ angular.module('myApp.view3', ['ngRoute'])
 		$scope.loadTime = Date.now() - startTime;
 	}
 
-	image.src = "https://raw.githubusercontent.com/oburakevych/progressive-image-loading/master/app/images/avatar-1260x1600xoriginal-copy.jpg";
+	image.src = "https://raw.githubusercontent.com/oburakevych/progressive-image-loading/master/app/images/avatar-1260x1600x100-copy.jpg";
 }]);
