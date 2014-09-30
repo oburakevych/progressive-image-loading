@@ -16,5 +16,5 @@ angular.module('myApp.view4', ['ngRoute'])
 		imageElement.attr('src', image.src);
 	}
 
-	image.src = "https://raw.githubusercontent.com/oburakevych/progressive-image-loading/master/app/images/avatar-1260x1600xoriginal.jpg";
+	image.src = "https://raw.githubusercontent.com/oburakevych/progressive-image-loading/master/app/images/avatar-1260x1600xcopy4.jpg";
 }]);
